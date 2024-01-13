@@ -30,3 +30,5 @@ func FunctionName(a ar2x2, parameters...) <return value> {
 컴파일 시점에 Go 컴파일러는 **타입 메서드를 자신의 타입이 첫번째 매개변수로 사용하는 일반 함수로 변경**합니다.
 
 ### 타입 메서드 사용
+
+{% embed url="https://gist.github.com/kineo2k/22e1fb4ec40a42335332a839dda59f6a" %}
