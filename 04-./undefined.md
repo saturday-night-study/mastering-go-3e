@@ -4,34 +4,34 @@
 
 리플렉션은 강력한 기능이지만 읽기 좋은 코드를 만들어주지는 않으므로 꼭 필요한 경우에만 사용할 수 있도록 해야합니다.
 
-#### 왜 Go에 리플렉션이 있을까?
+### 왜 Go에 리플렉션이 있을까?
 
-동적으로 오브젝트 구조에 대한 정보를 알수 있기 때문입니다. <mark style="color:blue;">`fmt.Println()`</mark> 함수는 매개변수의 데이터 타입에 따라 다르게 동작하는데, 이를 위해서 <mark style="color:orange;">**fmt**</mark> 패키지에서 리플렉션을 사용합니다.
+동적으로 오브젝트 구조에 대한 정보를 알수 있기 때문입니다. `fmt.Println()` 함수는 매개변수의 데이터 타입에 따라 다르게 동작하는데, 이를 위해서 <mark style="color:orange;">**fmt**</mark> 패키지에서 리플렉션을 사용합니다.
 
 {% embed url="https://gist.github.com/kineo2k/bf845fb1e926bdf7be8f26a193fda6fe" %}
 
-#### 리플렉션은 언제 사용하는가?
+### 리플렉션은 언제 사용하는가?
 
 컴파일 타임(Compile-time)에 존재하지 않지만 런타임에 존재하는 데이터 타입을 처리할 수 있게해줍니다. 예를 들어 REST API나 설정 파일로부터 JSON 문자열을 읽어온후 구조체 오브젝트로 바인딩하는 경우에 리플렉션을 활용할 수 잇습니다.
 
 #### 리플렉션에서 Go 타입과 값
 
-<mark style="color:orange;">**reflect**</mark> 패키지에서는 <mark style="color:blue;">**reflect.Type**</mark>과 <mark style="color:blue;">**reflect.Value**</mark>를 주로 사용합니다.
+<mark style="color:orange;">**reflect**</mark> 패키지에서는 `reflect.Type`과 `reflect.Value`를 주로 사용합니다.
 
 * reflect.Type
   * 오브젝트의 타입을 표현
-  * 특히 Go <mark style="color:blue;">**interface{}**</mark>에는 어떤 타입이든 담을 수 있으므로 실제로 어떤 값이 있는지 확인할때 필요
-  * <mark style="color:blue;">**reflect.TypeOf(i any)**</mark>는 reflect.Type을 반환, <mark style="color:blue;">**i**</mark>에 <mark style="color:blue;">**nil**</mark>을 넘기면 <mark style="color:blue;">**nil**</mark>을 반환
+  * 특히 Go `interface{}`에는 어떤 타입이든 담을 수 있으므로 실제로 어떤 값이 있는지 확인할때 필요
+  * `reflect.TypeOf(i any)`는 reflect.Type을 반환, <mark style="color:blue;">**i**</mark>에 `nil`을 넘기면 `nil`을 반환
 * reflect.Value
   * 타입의 값을 저장
-  * <mark style="color:blue;">**reflect.ValueOf(i any)**</mark>는 reflect.Value를 반환, <mark style="color:blue;">**i**</mark>에 <mark style="color:blue;">**nil**</mark>을 넘기면 <mark style="color:blue;">**nil**</mark>을 반환
+  * `reflect.ValueOf(i any)`는 reflect.Value를 반환, <mark style="color:blue;">**i**</mark>에 <mark style="color:blue;">**nil**</mark>을 넘기면 <mark style="color:blue;">**nil**</mark>을 반환
 
 구조체의 필드 정보도 제공합니다.
 
-* <mark style="color:blue;">**reflect.NumField()**</mark> : 구조체의 필드 개수를 반환
-* <mark style="color:blue;">**reflect.Field()**</mark> : 구조체의 특정 필드의 reflect.Value값을 조회
+* `reflect.NumField()` : 구조체의 필드 개수를 반환
+* `reflect.Field()` : 구조체의 특정 필드의 reflect.Value값을 조회
 
-<mark style="color:blue;">**reflect.Kind**</mark>라는 타입이 있는데 reflect.Type이 나타내는 타입이 어떤 자료형으로 이루어졌는지 표현합니다.
+`reflect.Kind`라는 타입이 있는데 reflect.Type이 나타내는 타입이 어떤 자료형으로 이루어졌는지 표현합니다.
 
 {% embed url="https://gist.github.com/kineo2k/247734af4f85f82f0e5e979b8f857d59" %}
 
@@ -45,7 +45,7 @@
 
 {% embed url="https://gist.github.com/kineo2k/2cf8a9566e24e8752ee47f88f70316e3" %}
 
-<mark style="color:blue;">**main.Record, main.Secret**</mark>은 구조체의 완전한 이름으로 패키지의 이름은 main이고 구조체의 이름은 Record와 Secret입니다. Go에서 서로 다른 패키지에 동일한 이름의 구조체가 있어서 서로 구분이되는 것은 이와 같이 이름을 정하기 때문입니다.
+`main.Record, main.Secret`은 구조체의 완전한 이름으로 패키지의 이름은 main이고 구조체의 이름은 Record와 Secret입니다. Go에서 서로 다른 패키지에 동일한 이름의 구조체가 있어서 서로 구분이되는 것은 이와 같이 이름을 정하기 때문입니다.
 
 위 예제에서는 구조체의 정보만 조회할 뿐 아무것도 변경하지 않습니다. 다음 절에서 구조체의 필드 값을 변경해 보겠습니다.
 
