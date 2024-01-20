@@ -2,7 +2,7 @@
 
 
 
-## 개요
+## 목표 설정정
 
 
 
@@ -27,6 +27,10 @@
 
 
 ## 핵심 소스코드
+
+
+
+[https://github.com/MarkYoo23/mastering-go-example/tree/master/2024-01-20%20two-csv-format](https://github.com/MarkYoo23/mastering-go-example/tree/master/2024-01-20%20two-csv-format)
 
 
 
