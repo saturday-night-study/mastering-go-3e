@@ -1,3 +1,17 @@
+---
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+---
+
 # 맵
 
 배열과 슬라이스는 **인덱스로 정수만 사용할 수 있는 한계점이 존재**합니다. 하지만 현실 데이터를 가상의 영역으로 구현하기 위해서는 **인덱스 값이 정수가 아닌 문자열 또는 형태로 표현될 필요성**이 있습니다.
