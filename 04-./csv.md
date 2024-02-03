@@ -2,128 +2,224 @@
 
 
 
-## 목표 설정
+본 챕터는 '인터페이스'의  정의에 이어, 구체적인 예시로 아래 프로그램을 작성 하려고 합니다.
+
+* 디스크에 CSV 파일로 저장된 테이블의 컬럼 구조를 인식하여, 인식 가능한 컬럼인지 확인하고 메모리에 로드 합니다.
+* 메모리에 로드한 테이블을 'Name' 필드를 이용해 정렬 후 출력합니다.
+
+이 프로그램을  통해 인터페이스를 활용하여 기능을 확장하는 과정을 공유하고, 편리함에 대해 공유 해 보려고 합니다.&#x20;
 
 
 
-### 학습 목표
+## 시뮬레이션
 
-* **정의한 구조체(A)**에 **인터페이스(I)를 구현**  하여 I를 사용하는 함수로  원하는 결과를 얻을 수 있는 프로그램을 작성한다.
+위에서 대략적인 요구 사항을 확인 했으면, 구체적인 프로그램으로 작성하는 과정을 거쳐야겠죠. 아래에서 대략적인 시나리오에 따라 요구사항이 왔다고 가정해보겠습니다.
+
+1. 특정 포멧을 가진(이름, 성 전화번호, 마지막 접근 시간)  CSV 파일을 읽고 정렬하여 콘솔에 프로그램을 출력하는 프로그램을 제작 해 달라는 요청
+2. &#x20;다른 포멧(이름, 성, 지역코드, 전화번호, 마지막 접근 시간) 도 읽을 수 있도록 추가해달라는 요청
+
+## 프로그램 작성
 
 
 
-### 프로그램 정의
+### 1차
 
-1. CLI 프로그램은 CSV 파일의 위치를 인수(argument) 값으로 전달한다.
-2. CSV 파일은 두가지 포멧을 가진다.
-   1. 포멧 1 : 이름, 성 전화번호, 마지막 접근 시간
-   2. 포멧 2 : 이름, 성, 지역코드, 전화번호, 마지막 접근 시간
-3. CSV 파일을 읽은  후, 이름 순으로 정렬후 출력 한다.
+그럼  특정 포멧을 가진(이름, 성 전화번호, 마지막 접근 시간)  CSV 파일을 읽고 정렬하여 콘솔에 프로그램을 출력하는 프로그램을 제작 해 보겠습니다.
 
-### 시퀸스 다이어그램
+#### 시퀸스 다이어그램
 
 <figure><img src="../.gitbook/assets/image (2).png" alt="" width="312"><figcaption></figcaption></figure>
 
 
 
-## 핵심 소스코드
+#### 기능 구현
 
 
 
-[https://github.com/MarkYoo23/mastering-go-example/tree/master/2024-01-20%20two-csv-format](https://github.com/MarkYoo23/mastering-go-example/tree/master/2024-01-20%20two-csv-format)
-
-
+먼저 아래와 같이 읽을 포멧을 만들고, 이를 정렬, 출력하는 기능을 추가 하였습니다.
 
 ```go
-package sort
+type Figure01 struct {
+...
+}
 
-import "math/bits"
+type Figure01s []Figure01
+...
 
-// An implementation of Interface can be sorted by the routines in this package.
-// The methods refer to elements of the underlying collection by integer index.
-type Interface interface {
-    // Len is the number of elements in the collection.
-    Len() int
 
-    // Less reports whether the element with index i
-    // must sort before the element with index j.
-    //
-    // If both Less(i, j) and Less(j, i) are false,
-    // then the elements at index i and j are considered equal.
-    // Sort may place equal elements in any order in the final result,
-    // while Stable preserves the original input order of equal elements.
-    //
-    // Less must describe a transitive ordering:
-    //  - if both Less(i, j) and Less(j, k) are true, then Less(i, k) must be true as well.
-    //  - if both Less(i, j) and Less(j, k) are false, then Less(i, k) must be false as well.
-    //
-    // Note that floating-point comparison (the < operator on float32 or float64 values)
-    // is not a transitive ordering when not-a-number (NaN) values are involved.
-    // See Float64Slice.Less for a correct implementation for floating-point values.
-    Less(i, j int) bool
+func (fs Figure01s) Sort() {
+	sort.Sort(fs)
+}
 
-    // Swap swaps the elements with indexes i and j.
-    Swap(i, j int)
+func (fs Figure01s) PrintConsole() {
+	for i, f := range fs {
+		fmt.Printf("%d : %s, %s, %s, %s\n", i, f.Name, f.Surname, f.Tel, f.LastAccess)
+	}
 }
 ```
 
+
+
+CSV Reader가 파일을 읽어서, 직접적으로 reader.Figure01s 을 반환하도록 한 후
+
+<pre class="language-go"><code class="lang-go"><strong>func (c *CsvReader) ReadFile(path string) (reader.Figure01s, error) {
+</strong>    ...
+}
+</code></pre>
+
+
+
+정렬후, 출력을 하는 프로그램을 만들었습니다.
+
 ```go
-package reader
+func main() {
+    readAndSort("./.resource/figure01.csv")
+    readAndSort("./.resource/figure02.csv")
+    readAndSort("./.resource/figureX.csv")
+}
 
-import "strings"
+func readAndSort(path string) {
+    csvReader := NewCsvReader()
 
+    f, err := csvReader.ReadFile(path)
+    if err != nil {
+       fmt.Println(err)
+       return
+    }
+
+    f.Sort()
+    f.PrintConsole()
+}
+```
+
+
+
+출력이 완료되었습니다. 첫번째 포멧을 출력하는 프로그램을 제작 하게 되었습니다!
+
+<pre><code><strong>// ./.resource/figure01.csv
+</strong><strong>0 : A, John, 01044444444, 2019-01-01 00:00:00
+</strong>1 : B, John, 01033333333, 2019-01-01 00:00:00
+2 : C, John, 01022222222, 2019-01-01 00:00:00
+3 : D, John, 01011111111, 2019-01-01 00:00:00
+// ./.resource/figure02.csv
+not implemented
+// ./.resource/figureX.csv
+not implemented
+</code></pre>
+
+
+
+### 2차
+
+
+
+이번에는다른 포멧(이름, 성, 지역코드, 전화번호, 마지막 접근 시간) 도 읽을 수 있도록 추가해 보겠습니다.
+
+
+
+아래와 같이 동일한 구조체를 만들었는데...&#x20;
+
+```go
 type Figure01 struct {
-	Name       string
-	Surname    string
-	Tel        string
-	LastAccess string
+...
 }
 
 type Figure01s []Figure01
 
-// 구현된 인터페이스
-func (f Figure01s) Len() int {
-	return len(f)
+...
+
+func (fs Figure01s) Sort() {
+    sort.Sort(fs)
 }
 
-func (f Figure01s) Less(i, j int) bool {
-	return strings.Compare(f[i].Name, f[j].Name) < 0
+func (fs Figure01s) PrintConsole() {
+    for i, f := range fs {
+       fmt.Printf("%d : %s, %s, %s, %s\n", i, f.Name, f.Surname, f.Tel, f.LastAccess)
+    }
 }
 
-func (f Figure01s) Swap(i, j int) {
-	f[i], f[j] = f[j], f[i]
+type Figure02 struct {
+...
+}
+
+type Figure02s []Figure02
+
+...
+
+func (fs Figure02s) Sort() {
+	sort.Sort(fs)
+}
+
+func (fs Figure02s) PrintConsole() {
+	for i, f := range fs {
+		fmt.Printf("%d : %s, %s, %s, %s, %s\n", i, f.Name, f.Surname, f.Areacode, f.Tel, f.LastAccess)
+	}
 }
 ```
 
-* sort 패키지의 Interface interface 를 구현합니다.
+
+
+이를 지원하기위해서 두개의  CSV 리더를 만들면... 중복 코드가 생기게 되겠죠
+
+<pre class="language-go"><code class="lang-go"><strong>func (c *CsvReader) ReadFile(path string) (reader.Figure01s, error) {
+</strong>    ...
+}
+</code></pre>
+
+<pre class="language-go"><code class="lang-go"><strong>func (c *CsvReader) ReadFile(path string) (reader.Figure02s, error) {
+</strong>    ...
+}
+</code></pre>
+
+이를아래와 같이 공통 인터페이스를 만들고, 이를 함수의 리턴값으로 설정하면
 
 ```go
-// Sort sorts data in ascending order as determined by the Less method.
-// It makes one call to data.Len to determine n and O(n*log(n)) calls to
-// data.Less and data.Swap. The sort is not guaranteed to be stable.
-//
-// Note: in many situations, the newer slices.SortFunc function is more
-// ergonomic and runs faster.
-func Sort(data Interface) {
-    n := data.Len()
-    if n <= 1 {
+package reader
+
+type ControllableFile interface {
+    Sort()
+    PrintConsole()
+}
+```
+
+```go
+func (c *CsvReader) ReadFile(path string) (reader.ControllableFile, error) {
+    ...
+}
+```
+
+
+
+아래와 같이 다른 구조체에서 정렬, 출력 기능을 사용할 수 있게 됩니다.&#x20;
+
+```go
+func main() {
+    readAndSort("./.resource/figure01.csv")
+    readAndSort("./.resource/figure02.csv")
+    readAndSort("./.resource/figureX.csv")
+}
+
+func readAndSort(path string) {
+    csvReader := NewCsvReader()
+
+    f, err := csvReader.ReadFile(path)
+    if err != nil {
+       fmt.Println(err)
        return
     }
-    limit := bits.Len(uint(n))
-    pdqsort(data, 0, n, limit)
+
+    f.Sort()
+    f.PrintConsole()
 }
 ```
 
-```go
-switch figure.(type) {
-case reader.Figure01s:
-    sort.Sort(figure.(reader.Figure01s))
-case reader.Figure02s:
-    sort.Sort(figure.(reader.Figure02s))
-}
-```
+## 소스코드
 
-* sort 패키지의 Sort 메서드를 실행
+
+
+[https://github.com/MarkYoo23/mastering-go-example/](https://github.com/MarkYoo23/mastering-go-example/tree/master/2024-01-20%20two-csv-format)
+
+
 
 ## 팁
 
