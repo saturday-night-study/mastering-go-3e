@@ -166,3 +166,47 @@ func main() {
 이후 아래와 같이 go 파일을 실행하면 결과 값을 확인 할 수 있습니다. :tada:
 
 <figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption><p>jsonViper.go 프로그램 실행 화면</p></figcaption></figure>
+
+## 실시간으로 파일 설정 읽어오기
+
+viper 패키지는 위 제공 기능 외에 실시간으로 설정 파일 변경을 감지해 이를 활용해 Hot-load 할 수 있는 기능도 제공하고 있습니다. :thumbsup:
+
+이 기능을 사용하면 서버 설정 값 변경을 위해 프로그램을 다시 재 실행할 필요가 없어집니다.
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/fsnotify/fsnotify"
+	"github.com/spf13/viper"
+)
+
+type Config struct {
+	Name string `yaml:"name"`
+}
+
+func main() {
+	viperConfig := viper.New()
+	viperConfig.AddConfigPath(".")
+	viperConfig.SetConfigFile("config.yaml")
+
+	err := viperConfig.ReadInConfig()
+	if err != nil {
+		fmt.Println("Error on Reading Viper Config")
+		panic(err)
+	}
+
+	var config Config
+	err = viperConfig.Unmarshal(&config)
+	if err != nil {
+		fmt.Println("Error on Unmarshal Viper Config")
+		panic(err)
+	}
+	fmt.Println(config)
+
+	viperConfig.OnConfigChange(func(e fsnotify.Event) {
+		fmt.Println("config 파일 변경 감지 !!")
+	})
+}
+```
