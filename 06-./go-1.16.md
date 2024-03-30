@@ -222,3 +222,121 @@ func main() {
 
 1. os.ReadDir 함수를 이용하여 폴더를 읽어올 경우 os.DirEntry 구조체를 이용하여 폴더내의 트리 구조를 읽을 수 있는것을 확인하였습니다.
 
+
+
+### io/fs 패키지
+
+#### os 패키지와 포지션이 중복 되는데요?
+
+파일 시스템과의 상호 작용을 위해 os 패키지가 사용되었는데, 이는 특정 운영 체제에 의존하도록 작성할 수 밖에 없습니다. (예시 파일 패스...). 이는 여러 운영 체제 간에 이식성과 호환성이 떨어지는 단점이 있었고, 이 패키지는 운영 체제와 독립적인 파일 시스템 인터페이스를 제공하여, Go 언어로 작성된 프로그램이 여러 운영 체제에서 일관된 방식으로 파일 시스템에 접근할 수 있도록 도와줍니다.
+
+#### 임베딩과 io/fs 패키지 활용
+
+임베딩을 이용해서 폴더를 위치를 가져오면, 이를 io/fs 패키지를 통해 쉽게 동일한 방식(파일 패스) 로 가져올 수 있게 합니다.
+
+```
+
+package main  
+  
+import (  
+    "embed"  
+    "fmt"    "io/fs"    "os")  
+  
+//go:embed static  
+var f embed.FS  
+  
+var searchString string  
+  
+func walkFunction(path string, d fs.DirEntry, err error) error {  
+    if err != nil {  
+       return err  
+    }  
+    fmt.Printf("Path=%q, isDir=%v\n", path, d.IsDir())  
+    return nil  
+}  
+  
+func walkSearch(path string, d fs.DirEntry, err error) error {  
+    if err != nil {  
+       return err  
+    }  
+    if d.Name() == searchString {  
+       fileInfo, err := fs.Stat(f, path)  
+       if err != nil {  
+          return err  
+       }  
+       fmt.Println("Found", path, "with size", fileInfo.Size())  
+       return nil  
+    }  
+    return nil  
+}  
+  
+func list(f embed.FS) error {  
+    return fs.WalkDir(f, ".", walkFunction)  
+}  
+  
+func search(f embed.FS) error {  
+    return fs.WalkDir(f, ".", walkSearch)  
+}  
+  
+func extract(f embed.FS, filepath string) ([]byte, error) {  
+    return fs.ReadFile(f, filepath)  
+}  
+  
+func writeToFile(s []byte, path string) error {  
+    fd, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0644)  
+    if err != nil {  
+       return err  
+    }  
+    defer fd.Close()  
+  
+    n, err := fd.Write(s)  
+    if err != nil {  
+       return err  
+    }  
+    fmt.Printf("wrote %d bytes\n", n)  
+    return nil  
+}  
+  
+func main() {  
+    // At this point we do not know what is included in ./static  
+  
+    // 임베딩과 결합하여, 파일 리스트 호출이 가능합니다.  
+    err := list(f)  
+    if err != nil {  
+       fmt.Println(err)  
+       return  
+    }  
+  
+    // 임베딩과 결합하여, 파일 검색을 파일 명으로 가능합니다.  
+    searchString = "file.txt"  
+    err = search(f)  
+    if err != nil {  
+       fmt.Println(err)  
+       return  
+    }  
+  
+    // 파일을 불러올 수 있습니다.  
+    buffer, err := extract(f, "static/file.txt")  
+    if err != nil {  
+       fmt.Println(err)  
+       return  
+    }  
+  
+    // Save it to an actual file.txt  
+    curPath, _ := os.Getwd()  
+  
+    // 실제로 os.File 을 사용하는 경우... windows/linux 기반 시스템에서 같이 사용하지 못함  
+    err = writeToFile(buffer, curPath+"\\static\\IOFS.txt")  
+    if err != nil {  
+       fmt.Println(err)  
+       return  
+    }  
+}
+
+```
+
+참고자료
+
+* https://pkg.go.dev/io/fs
+* https://github.com/golang/go/issues/41190
+
