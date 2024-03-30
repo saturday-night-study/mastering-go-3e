@@ -2,15 +2,17 @@
 
 파일 시스템의 순환 참조 찾기
 
-```
+```go
+// https://github.com/mactsouk/mastering-Go-3rd/blob/main/ch06/FScycles.go  
 package main  
   
 import (  
     "fmt"  
-    "os"    "path/filepath")  
-  
-// https://github.com/mactsouk/mastering-Go-3rd/blob/main/ch06/FScycles.go  
-  
+    "os"    
+    
+    "path/filepath"
+)  
+
 var visited = map[string]int{}
   
 func walkFunction(path string, info os.FileInfo, err error) error {  

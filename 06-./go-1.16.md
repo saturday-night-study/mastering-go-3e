@@ -2,8 +2,6 @@
 
 ## 파일 임베드 (embed)
 
-
-
 ### 파일 임베딩과의 차이
 
 파일 + 임베딩의 합성어로 추측됩니다.
@@ -17,8 +15,6 @@
 
 이는 비유하자면, 사람이 물건을 판매하기 위해 표를 만들고 이를 통해 그룹화 하고 쉽게 인식하듯이. 파일 시스템 역시도 이를 해석하는 과정을 거친다는 뜻입니다.
 
-
-
 ### Go의 파일 임베드&#x20;
 
 임의의 파일을 파일/폴더를 바이너리 안에 내장(포함)하는 방법입니다.
@@ -31,10 +27,7 @@
 
 예제에서는 한개의 파일 임베딩을 이용하여 임베딩 합니다.
 
-
-
-```
-
+```go
 package main  
   
 import (  
@@ -94,17 +87,13 @@ func main() {
 2. //go:embed static/textfile 주석을 추가 하여 전역 변수에 임베드 패키지가 자동으로 파일을 읽을 수 있도록 추가합니다.
 3. 그후 전역변수에 로드된 파일을 사용하면 됩니다! 설정 파일, 웹서버의 스태틱 파일등을 제공하는데 유용 하겠네요.
 
-참조 자료
+#### 참조 자료
 
 1. https://medium.com/bgpworks/golang-1-16%EC%97%90-%EC%83%88%EB%A1%9C-%EC%B6%94%EA%B0%80%EB%90%9C-%EA%B8%B0%EB%8A%A5-embed%EB%A1%9C-%EC%8A%A4%ED%83%9C%ED%8B%B1-%EB%A6%AC%EC%86%8C%EC%8A%A4-%EB%84%A3%EA%B8%B0-1675c4564f5e
 2. https://blog.kesuskim.com/archives/go-embed/
 3. https://pkg.go.dev/embed
 
-
-
 ## 폴더 관련 기능
-
-
 
 ### io/ioutil 패키지가 사라진 이유
 
@@ -132,18 +121,15 @@ Go 1 이전에서는 논리적으로 프로그램은 OS에 요청하여 파일 �
 
 이후 io/util에 있는 기능들을 재 배치할 필요성이 보였고, io/ioutil 패키지의 기능들이 각각 기능에 맞게 os 패키지와 io 패키지로 재 배치되었습니다.
 
-참조
+#### 참조 자료
 
 * https://github.com/golang/go/issues/40025
 * https://github.com/golang/go/issues/42026
 * https://go.dev/talks/2016/refactor.article
 
-
-
 ### 폴더를  os.ReadDir 로 읽고 os.DirEntry 구조체로 분석
 
-```
-
+```go
 package main  
   
 import (  
@@ -220,9 +206,7 @@ func main() {
 
 본 프로그램을 통해
 
-1. os.ReadDir 함수를 이용하여 폴더를 읽어올 경우 os.DirEntry 구조체를 이용하여 폴더내의 트리 구조를 읽을 수 있는것을 확인하였습니다.
-
-
+* os.ReadDir 함수를 이용하여 폴더를 읽어올 경우 os.DirEntry 구조체를 이용하여 폴더내의 트리 구조를 읽을 수 있는것을 확인하였습니다.
 
 ### io/fs 패키지
 
@@ -234,8 +218,7 @@ func main() {
 
 임베딩을 이용해서 폴더를 위치를 가져오면, 이를 io/fs 패키지를 통해 쉽게 동일한 방식(파일 패스) 로 가져올 수 있게 합니다.
 
-```
-
+```go
 package main  
   
 import (  
@@ -335,7 +318,7 @@ func main() {
 
 ```
 
-참고자료
+#### 참고자료
 
 * https://pkg.go.dev/io/fs
 * https://github.com/golang/go/issues/41190
