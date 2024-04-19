@@ -71,3 +71,112 @@ main.main STEXT size=56 args=0x0 locals=0x18 funcid=0x0 align=0x0
 * ADD : 덧셈연산
 * 참고 자료
   * https://go.dev/doc/asm
+
+
+
+위의 자료를 통해 단일 메모리 주소 하나를 락을 통해 제어하는 것을 확인했다면, 이것이 동시성이 필요한 상황에서 경쟁 상태를 잘 피하는지, 이 시간이 얼마나 걸리는지 확인이 필요한데요.
+
+아래 책의 예제를 실행해 보겠습니다.
+
+<예제>
+
+```
+package main  
+  
+import (  
+    "fmt"  
+    "log"    "sync"    "sync/atomic"    "time")  
+  
+type atomCounter struct {  
+    value int64  
+}  
+  
+func (c *atomCounter) AddWithLock(i int64) {  
+    atomic.AddInt64(&c.value, i)  
+}  
+  
+func (c *atomCounter) AddWithNonLock(i int64) {  
+    c.value += i  
+}  
+  
+func (c *atomCounter) Value() int64 {  
+    return atomic.LoadInt64(&c.value)  
+}  
+  
+func main() {  
+    locking()  
+    nonLocking()  
+}  
+  
+func locking() {  
+    x := 100  
+    y := 4  
+  
+    st := time.Now()  
+  
+    fmt.Printf("start\n")  
+  
+    var wg sync.WaitGroup  
+    counter := atomCounter{}  
+  
+    for i := 0; i < x; i++ {  
+       wg.Add(1)  
+       go func() {  
+          defer wg.Done()  
+          // =+4  
+          for j := 0; j < y; j++ {  
+             counter.AddWithLock(1)  
+          }  
+       }()  
+    }  
+  
+    wg.Wait()  
+  
+    fmt.Printf("%d ns\n", time.Since(st).Nanoseconds())  
+  
+    // expected: 4 * 100 = 400  
+    log.Println("counter:", counter.Value())  
+}  
+  
+func nonLocking() {  
+    x := 100  
+    y := 4  
+  
+    st := time.Now()  
+  
+    fmt.Printf("start\n")  
+    counter := atomCounter{}  
+  
+    for i := 0; i < x; i++ {  
+       for j := 0; j < y; j++ {  
+          counter.AddWithLock(1)  
+       }  
+    }  
+  
+    fmt.Printf("%d ns\n", time.Since(st).Nanoseconds())  
+  
+    // expected: 4 * 100 = 400  
+    log.Println("counter:", counter.Value())  
+}
+
+```
+
+<실행 결과>
+
+```
+// 락킹을 건 결과
+start
+510200 ns
+2024/04/20 05:21:21 counter: 400
+
+
+// 락킹을 걸지 않은 결과
+start
+0 ns
+2024/04/20 05:21:21 counter: 400
+
+```
+
+예상 한대로. 400이 정상적으로 저장 된 것을 확인할 수 있습니다. 락을 걸지 않은 것에 비해 굉장히 오랜 시간이 걸린 것을 확인할 수 있습니다.
+
+하나의 메모리를 사용해야 한다면, 경쟁 상태를 피하는 것이 성능적으로는 더 훌륭하다는 사실을 알 수 있었네요.
