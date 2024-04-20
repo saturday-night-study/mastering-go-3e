@@ -59,7 +59,7 @@ func main() {
 ```
 {% endcode %}
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption><p>bufChannel.go의 예시 결과 화면</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>bufChannel.go의 예시 결과 화면</p></figcaption></figure>
 
 여기서 버퍼 채널이 실제로 동작하는 방식이 어떤 방식인지 조금 더 자세히 알고 싶어 `go runtime` 패키지 내부의 `chan.go`를 확인해 보았습니다.
 
@@ -162,7 +162,7 @@ func main() {
 
 #### 예시 결과 화면
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption><p>wPools.go 예시 실행 화면</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption><p>wPools.go 예시 실행 화면</p></figcaption></figure>
 
 ## 닐 채널(Nil Channel)
 
@@ -181,7 +181,7 @@ func main() {
 }
 ```
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>nil 채널을 닫았을 때 오류가 발생한 모습</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption><p>nil 채널을 닫았을 때 오류가 발생한 모습</p></figcaption></figure>
 
 ### nil 채널의 사용예시
 

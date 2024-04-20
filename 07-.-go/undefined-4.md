@@ -115,10 +115,10 @@ func main() {
 
 #### 타임아웃 주기를 100ms로 했을 때 결과 화면
 
-<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>타임아웃이 100ms 인 경우 결과 화면</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption><p>타임아웃이 100ms 인 경우 결과 화면</p></figcaption></figure>
 
 #### 타임아웃 주기를 5500ms로 했을 때 결과 화면
 
-<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>타임아웃이 5500ms 인 경우 결과 화면</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption><p>타임아웃이 5500ms 인 경우 결과 화면</p></figcaption></figure>
 
 위 2가지 결과를 통해 볼 수 있듯이 `main()`함수 외부에서 채널을 구성하고 이를 `select`로 다룸으로써 타임아웃을 구현하는 방식에 대해서 알아보았습니다.
