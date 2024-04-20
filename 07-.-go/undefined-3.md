@@ -16,6 +16,7 @@
 
 실제로 `-race` 플래그를 활용해서 `channels.go` 파일을 실행한다면, 다음과 같은 결과를 확인할 수 있습니다.
 
+{% code title="channels.go" lineNumbers="true" %}
 ```go
 package main
 
@@ -77,6 +78,7 @@ func main() {
 	}
 }
 ```
+{% endcode %}
 
 <figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>-race 플래그와 함께 실행한 channels.go 예시 프로그램 출력 화면</p></figcaption></figure>
 
