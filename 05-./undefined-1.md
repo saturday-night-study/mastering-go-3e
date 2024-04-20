@@ -4,7 +4,7 @@
 
 Go 모듈은 버전을 표시한 패키지라고 표현되고 있습니다. Go 모듈은 버전 기입을 할 때 `시맨틱 버저닝(semantic versioning)`을 채택해서 사용하고 있습니다.
 
-<figure><img src="../.gitbook/assets/image (1).png" alt="" width="349"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (2).png" alt="" width="349"><figcaption></figcaption></figure>
 
 시멘틱 버저닝은 3자리 숫자로 구성되어 있습니다. 각각 `메이저(Major)`, `마이너(Minor)`, `패치(Patch)` 버전으로 구성되어 있습니다.
 
