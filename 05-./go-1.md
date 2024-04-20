@@ -12,7 +12,7 @@ $ git clone https://github.com/mactsouk/post05.git
 
 위 명령어를 실행하면 해당 페이지에 기록 된 것처럼 post05에 대한 소스코드를 직접 받을 수 있게 됩니다.
 
-<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption><p>위 github 페이지 실제 접속 화면</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>위 github 페이지 실제 접속 화면</p></figcaption></figure>
 
 소스를 가져오는 것 대신에 `go get` 명령어를 통해서 개발하고 있는 자신의 패키지에 직접 소스를 추가하는 것도 쉽게 진행할 수 있습니다. (아래에서 추가 기술)
 
