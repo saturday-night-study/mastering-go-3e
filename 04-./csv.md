@@ -28,7 +28,7 @@
 
 #### 시퀸스 다이어그램
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt="" width="312"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1).png" alt="" width="312"><figcaption></figcaption></figure>
 
 
 
@@ -229,7 +229,7 @@ func readAndSort(path string) {
 
 ## 팁
 
-<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * intellij 에서 ctrl + enter 시 위의 사진과 같이 Implement interface 를 이용하여, 인터페이스를 구현할  수 있습니다.
 
