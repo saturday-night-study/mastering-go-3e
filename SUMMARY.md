@@ -46,7 +46,7 @@
   * [고루틴 타임아웃](07-.-go/undefined-4.md)
   * [Go 채널 다시보기](07-.-go/go-1.md)
   * [공유 메모리와 공유 변수](07-.-go/undefined-5.md)
-  * [atomic 패키지 & 고루틴 메모리 공유](07-.-go/atomic-and.md)
+  * [atomic 패키지](07-.-go/atomic.md)
   * [클로저 변수와 go 구문](07-.-go/go-2.md)
   * [context 패키지](07-.-go/context.md)
 * [08장. 웹 서비스 만들기](08-./README.md)
