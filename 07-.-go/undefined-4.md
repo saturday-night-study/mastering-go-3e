@@ -115,7 +115,7 @@ func main() {
 
 #### 타임아웃 주기를 100ms로 했을 때 결과 화면
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption><p>타임아웃이 100ms 인 경우 결과 화면</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption><p>타임아웃이 100ms 인 경우 결과 화면</p></figcaption></figure>
 
 #### 타임아웃 주기를 5500ms로 했을 때 결과 화면
 

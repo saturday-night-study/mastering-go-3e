@@ -14,7 +14,7 @@ Go 런타임이 사용하는 스케줄러를 Go 스케줄러라고 하고, Go �
   * 각 사용자 수준스레드가 다수의 커널 스레드로 사상
   * 사용자 수준(런타임)의 스레드 스케줄러가 필요.
 
-<알림>
+
 
 고에서는 아래와 스레드가 관리됩니다.
 
@@ -23,7 +23,7 @@ Go 런타임이 사용하는 스케줄러를 Go 스케줄러라고 하고, Go �
 * 사용자 수준 스레드
   * 런타임 라이브러리(사용자)에 의해 관리되는 스레드 입니다.
 * 커널 수준 스레드
-  * 생성 주체가 커널이고, OS에 의해 관리되는 스레드 입니다. <종료>
+  * 생성 주체가 커널이고, OS에 의해 관리되는 스레드 입니다.&#x20;
 
 참고 자료
 
@@ -74,6 +74,28 @@ Go 런타임은 균등 스케줄링 전략 + 작업 훔치기 전략을 사용�
 
 * [https://rakyll.org/scheduler/](https://rakyll.org/scheduler/)
 * [https://marsettler.com/posts/2018-10-13-go-work-stealing-scheduler/](https://marsettler.com/posts/2018-10-13-go-work-stealing-scheduler/)
+
+
+
+## GOMAXPROCS 환경변수
+
+runtime.GOMAXPROCS(0) 를 사용하면 Go 런타임이 사용할 수 있는 CPU 의 개수를 설정할 수 있습니다.&#x20;
+
+* 0일 경우 = 최대갯수
+* 1이상 = 설정된 값 (최대 SMT 갯수를 넘을 수 없음)
+
+```go
+func main() {
+	fmt.Printf("컴파일리 : %v \n", runtime.Compiler)
+	fmt.Printf("아키텍처 : %v \n", runtime.GOARCH)
+	fmt.Printf("운영체제 : %v \n", runtime.GOOS)
+	// 항상 동시에 실행할 수 있는 CPU의 최대 개수, 현재 CPU 개수는 6개지만 SMT를 사용하면 12개로 인식
+	fmt.Printf("고루틴의 최대 개수 : %v \n", runtime.GOMAXPROCS(0))
+	fmt.Printf("CPU의 개수 : %v \n", runtime.NumCPU())
+	fmt.Printf("고루틴의 개수 : %v \n", runtime.NumGoroutine())
+	fmt.Printf("버전 : %v \n", runtime.Version())
+}
+```
 
 
 
