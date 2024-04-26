@@ -37,7 +37,7 @@
   * [Go 1.16의 새로운 기능](06-./go-1.16.md)
   * [전화전호부 애플리케이션 업데이트](06-./undefined-6.md)
 * [07장. Go의 동시성](07-.-go/README.md)
-  * [프로세스, 스레드, 고루틴](07-.-go/undefined.md)
+  * [프로세스, 스레드](07-.-go/undefined.md)
   * [Go 스케줄러](07-.-go/go.md)
   * [고루틴](07-.-go/undefined-1.md)
   * [채널](07-.-go/undefined-2.md)
