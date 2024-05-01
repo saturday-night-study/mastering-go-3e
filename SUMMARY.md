@@ -49,6 +49,7 @@
   * [atomic 패키지](07-.-go/atomic-and.md)
   * [클로저 변수와 go 구문](07-.-go/go-2.md)
   * [context 패키지](07-.-go/context.md)
+  * [semaphore 패키지](07-.-go/semaphore.md)
 * [08장. 웹 서비스 만들기](08-./README.md)
   * [net/http 패키지](08-./net-http.md)
   * [웹 서버 생성](08-./undefined.md)
