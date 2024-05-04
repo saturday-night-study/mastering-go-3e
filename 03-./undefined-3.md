@@ -14,7 +14,7 @@
 
 
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt="" width="300"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt="" width="300"><figcaption></figcaption></figure>
 
 &#x20; 복잡한 비즈니스 로직을 처리하기 위해 레이어로 구역을 나누어 유지 보수성, 확장성을 향상 시킨 아키텍처 입니다. 앞으로 시스템이 많은 변경점을 가지기 때문에 코드를 각자의 위치에서 응집성 있게 작성하는것이 중요합니다.
 

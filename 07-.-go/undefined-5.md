@@ -87,7 +87,7 @@ func main() {
 ```
 {% endcode %}
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption><p>mutex.go 실행 결과</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>mutex.go 실행 결과</p></figcaption></figure>
 
 ### 뮤텍스 해제를 잊어버릴 경우
 
@@ -130,7 +130,7 @@ func main() {
 ```
 {% endcode %}
 
-<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>forgetMutex.go 실행 결과 화면</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption><p>forgetMutex.go 실행 결과 화면</p></figcaption></figure>
 
 위 코드의 경우 Lock 이후 해제를 해주지 않아 다음 고루틴에서 다시 뮤텍스를 Lock 하려고 하여 발생한 오류입니다. 만약 Lock이 되어 있는 뮤텍스를 다시 Lock하게 되면 교착 상태에 빠지게 됩니다.
 
@@ -218,4 +218,4 @@ func main() {
 ```
 {% endcode %}
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption><p>rwMutex.go 프로그램 결과 화면</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>rwMutex.go 프로그램 결과 화면</p></figcaption></figure>

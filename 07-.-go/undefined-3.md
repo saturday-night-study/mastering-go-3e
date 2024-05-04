@@ -80,7 +80,7 @@ func main() {
 ```
 {% endcode %}
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption><p>-race 플래그와 함께 실행한 channels.go 예시 프로그램 출력 화면</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption><p>-race 플래그와 함께 실행한 channels.go 예시 프로그램 출력 화면</p></figcaption></figure>
 
 
 
