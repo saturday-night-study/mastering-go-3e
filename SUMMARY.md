@@ -98,3 +98,5 @@
 * [부록A. Go 가비지 컬렉터](a.-go/README.md)
   * [힙과 스택](a.-go/undefined.md)
   * [가비지 컬렉션](a.-go/undefined-1.md)
+* [기타](undefined/README.md)
+  * [Star file 서비스](undefined/star-file.md)
